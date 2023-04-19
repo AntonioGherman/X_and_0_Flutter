@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'game_page.dart';
 import 'players_page.dart';
 
 void main() {
