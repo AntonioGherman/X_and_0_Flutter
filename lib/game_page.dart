@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {
-   GamePage({Key? key,required this.playerOneName, required this.playerTwoName,}):super(key:key);
+  const GamePage({
+    super.key,
+    required this.playerOneName,
+    required this.playerTwoName,
+  });
 
   final String playerOneName;
   final String playerTwoName;
-
 
   @override
   State<GamePage> createState() => _GamePageState();
@@ -36,66 +39,57 @@ class _GamePageState extends State<GamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Tic Tac Toe'),
-          centerTitle: true,
-            automaticallyImplyLeading: false
-        ),
-        body:
-        Padding(
-        padding: EdgeInsets.all(20),
-            child:Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              // Row(
-              //   children: <Widget>[
-              //     Text(widget.playerOneName),
-              //     Text(widget.playerTwoName)
-              //   ],
-              // ),
-              Padding(
-                padding:EdgeInsets.all(25),
-                child:
-                Text('It`s ${_currentPlayer == _playerOne ? widget.playerOneName: widget.playerTwoName} turn',
-                    style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold)),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 2,
-                child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
-                    itemCount: 9,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _box(index);
-                    }),
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(child:
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        startGame();
-                      });
-                    },
-                    child: const Text('Reset'),
-                  )),
-                  SizedBox(width: 50),
-                  Expanded(child:
-                  ElevatedButton(
-                    onPressed: () {
-                      // setState(() {
-                      //   startGame();
-                      //
-                      // });
-                      Navigator.pop(context);
-                    },
-                    child: const Text('New Game'),
-                  ))
-                ],
-              ),
-
-            ]),
-        )
-
-    );
+        appBar: AppBar(title: const Text('Tic Tac Toe'), centerTitle: true, automaticallyImplyLeading: false),
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            // Row(
+            //   children: <Widget>[
+            //     Text(widget.playerOneName),
+            //     Text(widget.playerTwoName)
+            //   ],
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: Text('It`s ${_currentPlayer == _playerOne ? widget.playerOneName : widget.playerTwoName} turn',
+                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                  itemCount: 9,
+                  itemBuilder: (BuildContext context, int index) {
+                    return _box(index);
+                  }),
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      startGame();
+                    });
+                  },
+                  child: const Text('Reset'),
+                )),
+                const SizedBox(width: 50),
+                Expanded(
+                    child: ElevatedButton(
+                  onPressed: () {
+                    // setState(() {
+                    //   startGame();
+                    //
+                    // });
+                    Navigator.pop(context);
+                  },
+                  child: const Text('New Game'),
+                ))
+              ],
+            ),
+          ]),
+        ));
   }
 
   Widget _box(int index) {
@@ -161,21 +155,24 @@ class _GamePageState extends State<GamePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(title: const Text('End Game'), content: Text('${playerWin == _playerOne ? widget.playerOneName: widget.playerTwoName} wins'), actions: <Widget>[
-          TextButton(
-              onPressed: () {
-                setState(() {
-                  startGame();
-                  Navigator.of(context, rootNavigator: true).pop();
-                });
-              },
-              child: const Text('Try again ?')),
-          TextButton(
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: const Text('OK'))
-        ]);
+        return AlertDialog(
+            title: const Text('End Game'),
+            content: Text('${playerWin == _playerOne ? widget.playerOneName : widget.playerTwoName} wins'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      startGame();
+                      Navigator.of(context, rootNavigator: true).pop();
+                    });
+                  },
+                  child: const Text('Try again ?')),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  child: const Text('OK'))
+            ]);
       },
     );
   }
